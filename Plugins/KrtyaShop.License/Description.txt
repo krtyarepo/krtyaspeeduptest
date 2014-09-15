@@ -1,0 +1,8 @@
+﻿Group: Misc
+FriendlyName: Krtya Shop Licensing System
+SystemName: KrtyaShop.License
+Version: 1.0.0.0
+SupportedVersions: 3.40
+Author: Dharmik Bhandari
+DisplayOrder: 1
+FileName: KrtyaShop.License.dll
