@@ -2,6 +2,7 @@
 using Autofac.Core;
 using KrtyaShop.License.Data;
 using KrtyaShop.License.Domain;
+using KrtyaShop.License.Services;
 using Nop.Core.Data;
 using Nop.Core.Infrastructure;
 using Nop.Core.Infrastructure.DependencyManagement;
@@ -14,6 +15,8 @@ namespace KrtyaShop.License.Infrastructure
     {
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
+            builder.RegisterType<LicenseServices>().As<ILicenseServices>().InstancePerLifetimeScope();
+
             //data context
             this.RegisterPluginDataContext<LicenseObjectContext>(builder, "nop_object_context_krtya_license");
 

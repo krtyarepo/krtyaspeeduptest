@@ -55,6 +55,10 @@ namespace KrtyaShop.License.Services
 
         #region License Validation Call Log
 
+        /// <summary>
+        /// Insert License Validation Call Log
+        /// </summary>
+        /// <param name="licenseValidationCallLog">LicenseValidationCallLog</param>
         public virtual void InsertLicenseValidationCallLog(LicenseValidationCallLog licenseValidationCallLog)
         {
             if (licenseValidationCallLog == null)

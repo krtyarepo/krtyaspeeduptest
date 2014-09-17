@@ -63,6 +63,7 @@
     <Compile Include="Domain\LicenseTypeEnum.cs" />
     <Compile Include="Domain\LicenseValidationCallLog.cs" />
     <Compile Include="Domain\SoftwareProductType.cs" />
+    <Compile Include="Events\OrderPaidEventConsumer.cs" />
     <Compile Include="Infrastructure\DependencyRegistrar.cs" />
     <Compile Include="LicensePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
