@@ -13,6 +13,7 @@ namespace KrtyaShop.License.Infrastructure
                  new { controller = "KrtyaShopLicense", action = "Configure" },
                  new[] { "KrtyaShop.License.Controllers" }
             );
+
         }
         public int Priority
         {

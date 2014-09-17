@@ -1,5 +1,6 @@
 ﻿
 using KrtyaShop.License.Domain;
+using Nop.Core;
 namespace KrtyaShop.License.Services
 {
     public interface ILicenseServices
@@ -18,6 +19,15 @@ namespace KrtyaShop.License.Services
         /// </summary>
         /// <param name="licenseRecord">License Record</param>
         void UpdateLicenseRecord(LicenseRecord licenseRecord);
+        
+
+        /// <summary>
+        /// GetAllLicenseRecords
+        /// </summary>
+        /// <param name="pageIndex">Page Index</param>
+        /// <param name="pageSize">Page Size</param>
+        /// <returns>License Records</returns>
+        IPagedList<LicenseRecord> GetAllLicenseRecords(int pageIndex, int pageSize);
         
 
         #endregion

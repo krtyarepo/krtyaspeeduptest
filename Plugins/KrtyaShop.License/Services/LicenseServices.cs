@@ -1,6 +1,8 @@
 ﻿using KrtyaShop.License.Domain;
+using Nop.Core;
 using Nop.Core.Data;
 using System;
+using System.Linq;
 
 namespace KrtyaShop.License.Services
 {
@@ -49,6 +51,21 @@ namespace KrtyaShop.License.Services
                 throw new ArgumentNullException("licenseRecord");
 
             _licenseRecordRepository.Update(licenseRecord);
+        }
+
+        /// <summary>
+        /// GetAllLicenseRecords
+        /// </summary>
+        /// <param name="pageIndex">Page Index</param>
+        /// <param name="pageSize">Page Size</param>
+        /// <returns>License Records</returns>
+        public virtual IPagedList<LicenseRecord> GetAllLicenseRecords(int pageIndex, int pageSize)
+        {
+            var query = _licenseRecordRepository.Table;
+            query = query.OrderByDescending(l => l.Id);
+
+            var licenseRecords = new PagedList<LicenseRecord>(query, pageIndex, pageSize);
+            return licenseRecords;
         }
 
         #endregion 
