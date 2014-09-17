@@ -1,10 +1,12 @@
 ﻿using KrtyaShop.License.Data;
 using Nop.Core.Plugins;
 using Nop.Services.Common;
+using Nop.Web.Framework.Menu;
+using Nop.Web.Framework.Web;
 
 namespace KrtyaShop.License
 {
-    public class LicensePlugin : BasePlugin
+    public class LicensePlugin : BasePlugin, IAdminMenuPlugin
     {
         #region Fields
 
@@ -44,5 +46,12 @@ namespace KrtyaShop.License
         }
 
         #endregion
+
+
+        public Nop.Web.Framework.Menu.SiteMapNode BuildMenuItem()
+        {
+            SiteMapNode node = new SiteMapNode { Visible = true, Title = "Krtya Licenses", Url = "/Plugins/KrtyaShopLicense/Configure" };
+            return node;
+        }
     }
 }
