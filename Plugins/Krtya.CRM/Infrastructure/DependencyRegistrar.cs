@@ -2,6 +2,7 @@
 using Autofac.Core;
 using Krtya.CRM.Data;
 using Krtya.CRM.Domain;
+using Krtya.CRM.Services;
 using Nop.Core.Data;
 using Nop.Core.Infrastructure;
 using Nop.Core.Infrastructure.DependencyManagement;
@@ -14,7 +15,9 @@ namespace Krtya.CRM.Infrastructure
     {
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
-            
+            builder.RegisterType<OpportunityServices>().As<IOpportunityServices>().InstancePerLifetimeScope();
+            builder.RegisterType<PersonServices>().As<IPersonServices>().InstancePerLifetimeScope();
+            builder.RegisterType<CompanyServices>().As<ICompanyServices>().InstancePerLifetimeScope();
 
             //data context
             this.RegisterPluginDataContext<KrtyaCRMObjectContext>(builder, "nop_object_context_krtya_crm");
