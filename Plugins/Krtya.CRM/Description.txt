@@ -1,0 +1,8 @@
+﻿Group: Misc
+FriendlyName: Krtya CRM
+SystemName: Krtya.CRM
+Version: 1.0.0.0
+SupportedVersions: 3.40
+Author: Dharmik Bhandari
+DisplayOrder: 1
+FileName: Krtya.CRM.dll

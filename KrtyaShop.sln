@@ -91,9 +91,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nop.Plugin.Misc.FacebookSho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrtyaShop.License", "Plugins\KrtyaShop.License\KrtyaShop.License.csproj", "{1F6B3D38-5DB9-495B-9445-59174754DC17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Krtya.CRM", "Plugins\Krtya.CRM\Krtya.CRM.csproj", "{D6A914EE-7C6B-49DC-865F-5F3353842196}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 42
+		SccNumberOfProjects = 43
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://192.168.1.130:8080/tfs/krtya_projects
 		SccLocalPath0 = .
@@ -261,6 +263,10 @@ Global
 		SccProjectTopLevelParentUniqueName41 = KrtyaShop.sln
 		SccProjectName41 = Plugins/KrtyaShop.License
 		SccLocalPath41 = Plugins\\KrtyaShop.License
+		SccProjectUniqueName42 = Plugins\\Krtya.CRM\\Krtya.CRM.csproj
+		SccProjectTopLevelParentUniqueName42 = KrtyaShop.sln
+		SccProjectName42 = Plugins/Krtya.CRM
+		SccLocalPath42 = Plugins\\Krtya.CRM
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -681,6 +687,16 @@ Global
 		{1F6B3D38-5DB9-495B-9445-59174754DC17}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1F6B3D38-5DB9-495B-9445-59174754DC17}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1F6B3D38-5DB9-495B-9445-59174754DC17}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D6A914EE-7C6B-49DC-865F-5F3353842196}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -727,6 +743,7 @@ Global
 		{9978B382-0BCD-4621-B6B5-52E0E3B5F464} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{6216A5CA-8599-4B53-8E70-F21CC6D4273C} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{1F6B3D38-5DB9-495B-9445-59174754DC17} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
+		{D6A914EE-7C6B-49DC-865F-5F3353842196} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\NopCommerce.ndproj"
