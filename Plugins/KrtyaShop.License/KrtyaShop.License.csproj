@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\KrtyaShopLicenseController.cs" />
+    <Compile Include="Data\EfStartUpTask.cs" />
     <Compile Include="Data\LicenseObjectContext.cs" />
     <Compile Include="Data\LicenseRecordMap.cs" />
     <Compile Include="Data\LicenseValidationCallLogMap.cs" />
