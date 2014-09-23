@@ -1,4 +1,5 @@
-﻿using Nop.Core.Plugins;
+﻿using Krtya.CRM.Data;
+using Nop.Core.Plugins;
 using Nop.Web.Framework.Menu;
 using Nop.Web.Framework.Web;
 using System;
@@ -9,17 +10,21 @@ using System.Threading.Tasks;
 
 namespace Krtya.CRM
 {
-    class KrtyaCRMPlugin: BasePlugin, IAdminMenuPlugin
+    public class KrtyaCRMPlugin : BasePlugin, IAdminMenuPlugin
     {
-        #region Fields
+      #region Fields
 
-        
+        private readonly KrtyaCRMObjectContext _objectContext;
 
         #endregion
 
         #region Ctor
 
-        
+        public KrtyaCRMPlugin(KrtyaCRMObjectContext objectContext)
+        {
+            _objectContext = objectContext;
+        }
+
         #endregion
 
         #region Methods
@@ -32,15 +37,20 @@ namespace Krtya.CRM
 
         public override void Install()
         {
+            _objectContext.Install();
+
             base.Install();
         }
 
         public override void Uninstall()
         {
+            _objectContext.Uninstall();
+
             base.Uninstall();
         }
 
         #endregion
+
 
 
         public Nop.Web.Framework.Menu.SiteMapNode BuildMenuItem()
