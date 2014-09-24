@@ -1,0 +1,19 @@
+﻿@model Krtya.CRM.Models.CompanyModel
+@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+
+    
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-customers.png")" alt="" />
+            <text>Edit Company</text><a href="@Url.RouteUrl("Plugin.Krtya.CRM.Company")"> (Back to List)</a>
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="k-button" value="@T("Admin.Common.Save")" />
+        </div>
+    </div>
+    @Html.Partial("~/Plugins/Krtya.CRM/Views/CRM/Company/_CreateOrUpdate.cshtml", Model)
+}

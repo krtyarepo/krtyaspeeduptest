@@ -11,5 +11,67 @@
         <img src="@Url.Content("~/Administration/Content/images/ico-customers.png")" alt="" />
          Company
     </div>
+    <div class="options">
+        <a href="@Url.RouteUrl("Plugin.Krtya.CRM.Company.Create")" class="k-button">@T("Admin.Common.AddNew")</a>
+    </div>
 </div>
+<table class="adminContent">
+    <tr>
+        <td>
+            <div id="companyList-grid"></div>
+
+            <script>
+                    $(document).ready(function () {
+                        $("#companyList-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("CompanyList", "CRM", new RouteValueDictionary() { { "Namespaces", "Krtya.CRM.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json"
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors"
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)]
+                            },
+                            editable: {
+                                confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [{
+                                field: "Id",
+                                title: "Id",
+                            },{
+                                field: "CompanyName",
+                                title: "CompanyName",
+                            },{
+                                field: "Id",
+                                title: "Details",
+                                width: 100,
+                                template: '<a href="CompanyDetail/#=Id#">Details</a>'
+                            }]
+                        });
+                    });
+            </script>
+        </td>
+    </tr>
+</table>
 
