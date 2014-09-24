@@ -2,6 +2,14 @@
 @using  Nop.Web.Framework;
 @Html.HiddenFor(model => model.Id)
 <table class="adminContent">
+            <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.PictureId):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.PictureId)
+            </td>
+        </tr>
         <tr>
             <td class="adminTitle">
                 @Html.NopLabelFor(model => model.CompanyName):
@@ -9,6 +17,15 @@
             <td class="adminData">
                 @Html.EditorFor(model => model.CompanyName)
                 @Html.ValidationMessageFor(model => model.CompanyName)
+            </td>
+        </tr>
+         <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.ContactTypeId):
+            </td>
+            <td class="adminData">
+                @Html.DropDownListFor(model => model.ContactTypeId, Model.AvailableContactType)
+                @Html.ValidationMessageFor(model => model.ContactTypeId)
             </td>
         </tr>
         <tr>

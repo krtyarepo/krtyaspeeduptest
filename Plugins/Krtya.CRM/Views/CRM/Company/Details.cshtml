@@ -16,11 +16,27 @@
 </div>
 <table class="adminContent">
         <tr>
+            <td>
+                Picture
+            </td>
+            <td>
+                <img src="@Model.PictureUrl" />
+            </td>
+        </tr>
+        <tr>
             <td class="adminTitle">
                 @Html.NopLabelFor(model => model.CompanyName):
             </td>
             <td class="adminData">
                 @Model.CompanyName
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.ContactTypeName):
+            </td>
+            <td class="adminData">
+                @Model.ContactTypeName
             </td>
         </tr>
         <tr>

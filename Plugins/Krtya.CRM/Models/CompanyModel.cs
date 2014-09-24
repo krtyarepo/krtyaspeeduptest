@@ -18,11 +18,14 @@ namespace Krtya.CRM.Models
 
         public string Email { get; set; }
 
-        public string PictureId { get; set; }
+        [UIHint("Picture")]
+        public int PictureId { get; set; }
 
         public string PictureUrl { get; set; }
 
-        public string ContactTypeId { get; set; }
+        public int ContactTypeId { get; set; }
+
+        public string ContactTypeName { get; set; }
 
         public string Description { get; set; }
 

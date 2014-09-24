@@ -1,5 +1,6 @@
 ﻿using Krtya.CRM.Models;
 using Krtya.CRM.Services;
+using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Kendoui;
 using System.Web.Mvc;
@@ -8,6 +9,8 @@ using Nop.Services.Directory;
 using Nop.Services.Localization;
 using Krtya.CRM.Domain;
 using System;
+using Nop.Services.Media;
+using Nop.Core.Domain.Media;
 
 namespace Krtya.CRM.Controllers
 {
@@ -21,18 +24,23 @@ namespace Krtya.CRM.Controllers
         private readonly ICountryService _countryService;
         private readonly IStateProvinceService _stateProvinceService;
         private readonly ILocalizationService _localizationService;
+        private readonly IPictureService _pictureService;
+        private readonly MediaSettings _mediaSettings;
 
         #endregion
 
         #region Ctor
 
         public CRMController(ICompanyServices companyServices, ICountryService countryService,
-            IStateProvinceService stateProvinceService, ILocalizationService localizationService)
+            IStateProvinceService stateProvinceService, ILocalizationService localizationService,
+            IPictureService pictureService, MediaSettings mediaSettings)
         {
             _companyServices = companyServices;
             _countryService = countryService;
             _stateProvinceService = stateProvinceService;
             _localizationService = localizationService;
+            _pictureService = pictureService;
+            _mediaSettings = mediaSettings;
         }
 
         #endregion
@@ -49,12 +57,14 @@ namespace Krtya.CRM.Controllers
             model.CompanyName = company.CompanyName;
             model.Email = company.Email;
             model.Description = company.Description;
-            model.Description = company.Description;
+            model.ContactTypeId = company.ContactTypeId;
+            model.ContactTypeName = company.ContactTypeEnum.ToString();
             model.Address1 = company.Address1;
             model.Address2 = company.Address2;
             model.ZipPostalCode = company.ZipPostalCode;
             model.City = company.City;
             model.CountryId = company.CountryId;
+            model.PictureUrl = _pictureService.GetPictureUrl(company.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
             if (company.CountryId.HasValue && company.CountryId.Value > 0)
             {
                 model.CountryName = _countryService.GetCountryById(company.CountryId.Value).Name.ToString();
@@ -94,6 +104,7 @@ namespace Krtya.CRM.Controllers
                 {
                     var companyModel = new CompanyModel();
                     companyModel.Id = x.Id;
+                    companyModel.PictureUrl = _pictureService.GetPictureUrl(x.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
                     companyModel.CompanyName = x.CompanyName;
                     return companyModel;
                 }),
@@ -106,6 +117,12 @@ namespace Krtya.CRM.Controllers
         {
             var model = new CompanyModel();
 
+            //Contact Type
+            model.AvailableContactType = ContactTypeEnum.None.ToSelectList(false).ToList();
+            
+
+
+            //Country
             model.AvailableCountries.Add(new SelectListItem() { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "0" });
             foreach (var c in _countryService.GetAllCountries(true))
             {
@@ -133,8 +150,9 @@ namespace Krtya.CRM.Controllers
 
             company.CompanyName = model.CompanyName;
             company.Email = model.Email;
+            company.ContactTypeId = model.ContactTypeId;
             company.Description = model.Description;
-            company.Description = model.Description;
+            company.PictureId = model.PictureId;
             company.Address1 = model.Address1;
             company.Address2 = model.Address2;
             company.ZipPostalCode = model.ZipPostalCode;
@@ -167,7 +185,11 @@ namespace Krtya.CRM.Controllers
             var company = _companyServices.GetCompanyById(companyId);
             PrepareCompanyModel(model, company);
 
+            //Contact Type
+            model.AvailableContactType = ContactTypeEnum.None.ToSelectList(false).ToList();
+            
 
+            //Country
             model.AvailableCountries.Add(new SelectListItem() { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "0" });
             foreach (var c in _countryService.GetAllCountries(true))
             {
@@ -196,7 +218,8 @@ namespace Krtya.CRM.Controllers
             company.CompanyName = model.CompanyName;
             company.Email = model.Email;
             company.Description = model.Description;
-            company.Description = model.Description;
+            company.ContactTypeId = model.ContactTypeId;
+            company.PictureId = model.PictureId;
             company.Address1 = model.Address1;
             company.Address2 = model.Address2;
             company.ZipPostalCode = model.ZipPostalCode;
