@@ -55,7 +55,7 @@ namespace Krtya.CRM
 
         public Nop.Web.Framework.Menu.SiteMapNode BuildMenuItem()
         {
-            SiteMapNode node = new SiteMapNode { Visible = true, Title = "Krtya CRM", Url = "/Plugins/KrtyaShopLicense/Configure" };
+            SiteMapNode node = new SiteMapNode { Visible = true, Title = "Krtya CRM", Url = "/Plugins/KrtyaCRM/Dashboard" };
             return node;
         }
     }
