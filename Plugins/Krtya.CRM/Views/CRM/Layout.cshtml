@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+
+    Html.AddCssFileParts("~/Plugins/Krtya.CRM/Content/crm-style.css");
+}
+@using Nop.Web.Framework.UI
+
+<div class="crm-main">
+	<div class="crm-header clearer">
+		<div class="crm-logo"> 
+			<img src="@Url.Content("~/Plugins/Krtya.CRM/logo.jpg")" alt="" />
+		</div>
+		<div class="crm-header-text">
+			<h1 style="color:#009fff;">Customer Relationship Management - Krtya</h1>
+		</div>
+	</div>
+	<div class="crm-section clearer">
+		<div class="crm-navigation">
+			@Html.Partial("~/Plugins/Krtya.CRM/Views/CRM/Navigation.cshtml")
+		</div>
+		<div class="crm-content">
+            @RenderBody()
+		</div>
+	</div>
+</div>

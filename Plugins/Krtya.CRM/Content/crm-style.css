@@ -1,0 +1,22 @@
+.crm-header {
+    
+}
+
+.crm-content {
+    margin-left: 112px;
+}
+.crm-navigation {
+    float: left;
+    margin-top: 35px;
+}
+
+.crm-logo 
+{
+   float: left;
+}
+
+.crm-header-text
+{
+	  float: left;
+	   padding: 20px 0 0 20px;
+}
