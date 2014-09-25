@@ -64,6 +64,7 @@ namespace Krtya.CRM.Controllers
             model.ZipPostalCode = company.ZipPostalCode;
             model.City = company.City;
             model.CountryId = company.CountryId;
+            model.PictureId = company.PictureId;
             model.PictureUrl = _pictureService.GetPictureUrl(company.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
             if (company.CountryId.HasValue && company.CountryId.Value > 0)
             {
