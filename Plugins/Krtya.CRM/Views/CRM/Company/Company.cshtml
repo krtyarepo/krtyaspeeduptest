@@ -8,7 +8,7 @@
 }
 <div class="section-header">
     <div class="title">
-        <img src="@Url.Content("~/Administration/Content/images/ico-customers.png")" alt="" />
+       <img src="@Url.Content("~/Plugins/Krtya.CRM/Content/images/ic_crm_company.png")" alt="" />
          Company
     </div>
     <div class="options">
@@ -58,15 +58,24 @@
                             scrollable: false,
                             columns: [{
                                 field: "PictureUrl",
-                                title: "Picture",
+                                title: "Logo",
                                 template: '<img src="#=PictureUrl#" />',
-                                width: 200
-                            },{
-                                field: "Id",
-                                title: "Id",
+                                width: 150
                             },{
                                 field: "CompanyName",
-                                title: "CompanyName",
+                                title: "Name",
+                            },{
+                                field: "Email",
+                                title: "Email",
+                                width: 150
+                            },{
+                                field: "WebsiteURL",
+                                title: "WebsiteURL",
+                                width: 150
+                            },{
+                                field: "PhoneNumber",
+                                title: "Phone Number",
+                                width: 150
                             },{
                                 field: "Id",
                                 title: "Details",

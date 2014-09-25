@@ -107,6 +107,9 @@ namespace Krtya.CRM.Controllers
                     companyModel.Id = x.Id;
                     companyModel.PictureUrl = _pictureService.GetPictureUrl(x.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
                     companyModel.CompanyName = x.CompanyName;
+                    companyModel.Email = x.Email;
+                    companyModel.WebsiteURL = x.WebsiteURL;
+                    companyModel.PhoneNumber = x.PhoneNumber;
                     return companyModel;
                 }),
                 Total = companies.TotalCount,
