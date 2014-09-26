@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Plugins/Krtya.CRM/Views/CRM/Layout.cshtml";
+
+    var defaultGridPageSize = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+
+    
+}
+<div class="section-header">
+    <div class="title">
+       <img src="@Url.Content("~/Plugins/Krtya.CRM/Content/images/ic_crm_person.png")" alt="" />
+         Person
+    </div>
+    <div class="options">
+        <a href="@Url.RouteUrl("Plugin.Krtya.CRM.Person.Create")" class="k-button">@T("Admin.Common.AddNew")</a>
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            <div id="personList-grid"></div>
+
+            <script>
+                    $(document).ready(function () {
+                        $("#personList-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("PersonList", "CRM", new RouteValueDictionary() { { "Namespaces", "Krtya.CRM.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json"
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors"
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)]
+                            },
+                            editable: {
+                                confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [{
+                                field: "PictureUrl",
+                                title: "Logo",
+                                template: '<img src="#=PictureUrl#" />',
+                                width: 150
+                            },{
+                                field: "FirstName",
+                                title: "Name",
+                            },{
+                                field: "Email",
+                                title: "Email",
+                                width: 150
+                            },{
+                                field: "Position",
+                                title: "Position",
+                                width: 150
+                            },{
+                                field: "PhoneNumber",
+                                title: "Phone Number",
+                                width: 150
+                            },{
+                                field: "Id",
+                                title: "Details",
+                                width: 100,
+                                template: '<a href="PersonDetail/#=Id#">Details</a>'
+                            }]
+                        });
+                    });
+            </script>
+        </td>
+    </tr>
+</table>
+

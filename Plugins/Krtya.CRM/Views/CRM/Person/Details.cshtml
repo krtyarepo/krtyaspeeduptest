@@ -1,0 +1,88 @@
+﻿@model Krtya.CRM.Models.PersonModel
+@using  Nop.Web.Framework;
+@{
+    Layout = "~/Plugins/Krtya.CRM/Views/CRM/Layout.cshtml";
+}
+<div class="section-header">
+    <div class="title">
+       <img src="@Url.Content("~/Plugins/Krtya.CRM/Content/images/ic_crm_person.png")" alt="" />
+            <text>Person Details</text><a href="@Url.RouteUrl("Plugin.Krtya.CRM.Person")"> (Back to List)</a>
+    </div>
+     <div class="options">
+        <a href="/Plugins/KrtyaCRM/PersonEdit/@Model.Id" class="k-button">Edit</a>
+    </div>
+</div>
+
+
+<table cellspacing="10">
+	<tr>
+		<td>
+			<table cellspacing="10">
+				<tr>
+					<td>
+						<img src="@Model.PictureUrl" width="300px" height="300px"/>
+					</td>
+					<td class="crm-vertical-align-top">
+                        <span class="crm-title">@Model.FirstName @Model.LastName</span>
+						<table class="adminContent">
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.Email):
+									</td>
+									<td class="adminData">
+										@Model.Email
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.PhoneNumber):
+									</td>
+									<td class="adminData">
+										@Model.PhoneNumber
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.Position):
+									</td>
+									<td class="adminData">
+										@Model.Position
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										Address:
+									</td>
+									<td class="adminData">
+										@Model.Address1
+										<br />
+										@Model.Address2
+										<br />
+										@Model.City
+										<br />
+										@Model.StateProvinceName <text> - <text> @Model.ZipPostalCode
+										<br />
+										@Model.CountryName
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.FaxNumber):
+									</td>
+									<td class="adminData">
+										@Model.FaxNumber
+									</td>
+								</tr>
+						 </table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.NopLabelFor(model => model.Description):
+			@Model.Description
+		</td>
+	</tr>
+</table>

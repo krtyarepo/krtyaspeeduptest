@@ -1,0 +1,17 @@
+﻿@model Krtya.CRM.Models.PersonModel
+@{
+    Layout = "~/Plugins/Krtya.CRM/Views/CRM/Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+       <img src="@Url.Content("~/Plugins/Krtya.CRM/Content/images/ic_crm_person.png")" alt="" />
+            <text>Add New Person</text><a href="@Url.RouteUrl("Plugin.Krtya.CRM.Person")"> (Back to List)</a>
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="k-button" value="@T("Admin.Common.Save")" />
+        </div>
+    </div>
+    @Html.Partial("~/Plugins/Krtya.CRM/Views/CRM/Person/_CreateOrUpdate.cshtml", Model)
+}
