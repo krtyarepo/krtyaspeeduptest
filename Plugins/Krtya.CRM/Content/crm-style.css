@@ -3,11 +3,11 @@
 }
 
 .crm-content {
-    margin-left: 112px;
+    margin-left: 120px;
 }
 .crm-navigation {
     float: left;
-    margin-top: 35px;
+    margin-top: 25px;
 }
 
 .crm-logo 
@@ -19,4 +19,13 @@
 {
 	  float: left;
 	   padding: 20px 0 0 20px;
+}
+
+.crm-title {
+    font-size:40px;
+    margin-left:50px
+}
+
+.crm-vertical-align-top {
+    vertical-align:top;
 }

@@ -56,6 +56,7 @@ namespace Krtya.CRM.Controllers
             model.Id = company.Id;
             model.CompanyName = company.CompanyName;
             model.Email = company.Email;
+            model.WebsiteURL = company.WebsiteURL;
             model.Description = company.Description;
             model.ContactTypeId = company.ContactTypeId;
             model.ContactTypeName = company.ContactTypeEnum.ToString();
@@ -64,8 +65,9 @@ namespace Krtya.CRM.Controllers
             model.ZipPostalCode = company.ZipPostalCode;
             model.City = company.City;
             model.CountryId = company.CountryId;
+            model.FaxNumber = company.FaxNumber;
             model.PictureId = company.PictureId;
-            model.PictureUrl = _pictureService.GetPictureUrl(company.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
+            model.PictureUrl = _pictureService.GetPictureUrl(company.PictureId);
             if (company.CountryId.HasValue && company.CountryId.Value > 0)
             {
                 model.CountryName = _countryService.GetCountryById(company.CountryId.Value).Name.ToString();
@@ -154,6 +156,7 @@ namespace Krtya.CRM.Controllers
 
             company.CompanyName = model.CompanyName;
             company.Email = model.Email;
+            company.WebsiteURL = model.WebsiteURL;
             company.ContactTypeId = model.ContactTypeId;
             company.Description = model.Description;
             company.PictureId = model.PictureId;
@@ -221,6 +224,7 @@ namespace Krtya.CRM.Controllers
             var company = _companyServices.GetCompanyById(model.Id);
             company.CompanyName = model.CompanyName;
             company.Email = model.Email;
+            company.WebsiteURL = model.WebsiteURL;
             company.Description = model.Description;
             company.ContactTypeId = model.ContactTypeId;
             company.PictureId = model.PictureId;
@@ -231,14 +235,14 @@ namespace Krtya.CRM.Controllers
             company.CountryId = model.CountryId;
             company.StateProvinceId = model.StateProvinceId;
             company.PhoneNumber = model.PhoneNumber;
-            company.FaxNumber = company.FaxNumber;
+            company.FaxNumber = model.FaxNumber;
 
             
             company.UpdatedDate = DateTime.UtcNow;
 
             _companyServices.UpdateCompany(company);
 
-            return CompanyDetail(model.Id);
+            return RedirectToAction("CompanyDetail", new { companyId=model.Id });
         }
         #endregion
     }

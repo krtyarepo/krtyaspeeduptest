@@ -12,117 +12,84 @@
         <a href="/Plugins/KrtyaCRM/CompanyEdit/@Model.Id" class="k-button">Edit</a>
     </div>
 </div>
-<table class="adminContent">
-        <tr>
-            <td>
-                Picture
-            </td>
-            <td>
-                <img src="@Model.PictureUrl" />
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.CompanyName):
-            </td>
-            <td class="adminData">
-                @Model.CompanyName
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.ContactTypeName):
-            </td>
-            <td class="adminData">
-                @Model.ContactTypeName
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.Email):
-            </td>
-            <td class="adminData">
-                @Model.Email
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.Description):
-            </td>
-            <td class="adminData">
-                @Model.Description
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.WebsiteURL):
-            </td>
-            <td class="adminData">
-                @Model.WebsiteURL
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.City):
-            </td>
-            <td class="adminData">
-                @Model.City
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.CountryId):
-            </td>
-            <td class="adminData">
-                @Model.CountryName
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.StateProvinceId):
-            </td>
-            <td class="adminData">
-                @Model.StateProvinceName
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.Address1):
-            </td>
-            <td class="adminData">
-                @Model.Address1
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.Address2):
-            </td>
-            <td class="adminData">
-                @Model.Address2
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.ZipPostalCode):
-            </td>
-            <td class="adminData">
-                @Model.ZipPostalCode
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.PhoneNumber):
-            </td>
-            <td class="adminData">
-                @Model.PhoneNumber
-            </td>
-        </tr>
-        <tr>
-            <td class="adminTitle">
-                @Html.NopLabelFor(model => model.FaxNumber):
-            </td>
-            <td class="adminData">
-                @Model.FaxNumber
-            </td>
-        </tr>
- </table>
+
+
+<table cellspacing="10">
+	<tr>
+		<td>
+			<table cellspacing="10">
+				<tr>
+					<td>
+						<img src="@Model.PictureUrl" width="300px" height="300px"/>
+					</td>
+					<td class="crm-vertical-align-top">
+                        <span class="crm-title">@Model.CompanyName</span>
+						<table class="adminContent">
+									<td class="adminTitle">
+										Type:
+									</td>
+									<td class="adminData">
+										@Model.ContactTypeName
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.Email):
+									</td>
+									<td class="adminData">
+										@Model.Email
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.PhoneNumber):
+									</td>
+									<td class="adminData">
+										@Model.PhoneNumber
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.WebsiteURL):
+									</td>
+									<td class="adminData">
+										@Model.WebsiteURL
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										Address:
+									</td>
+									<td class="adminData">
+										@Model.Address1
+										<br />
+										@Model.Address2
+										<br />
+										@Model.City
+										<br />
+										@Model.StateProvinceName <text> - <text> @Model.ZipPostalCode
+										<br />
+										@Model.CountryName
+									</td>
+								</tr>
+								<tr>
+									<td class="adminTitle">
+										@Html.NopLabelFor(model => model.FaxNumber):
+									</td>
+									<td class="adminData">
+										@Model.FaxNumber
+									</td>
+								</tr>
+						 </table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.NopLabelFor(model => model.Description):
+			@Model.Description
+		</td>
+	</tr>
+</table>
