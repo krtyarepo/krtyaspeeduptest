@@ -185,8 +185,8 @@ namespace Krtya.CRM.Controllers
             return View("~/Plugins/Krtya.CRM/Views/CRM/Company/Create.cshtml",model);
         }
 
-        [HttpPost]
-        public ActionResult CreateCompany(CompanyModel model)
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        public ActionResult CreateCompany(CompanyModel model,bool continueEditing)
         {
             var company = new Company();
 
@@ -210,7 +210,9 @@ namespace Krtya.CRM.Controllers
 
             _companyServices.InsertCompany(company);
 
-            return RedirectToAction("Company");
+            SuccessNotification(_localizationService.GetResource("Krtya.CRM.Notification.Company.Added"));
+            
+            return continueEditing ? RedirectToAction("CompanyEdit", new { companyId = company.Id }) : RedirectToAction("Company");
         }
 
         public ActionResult CompanyDetail(int companyId)
