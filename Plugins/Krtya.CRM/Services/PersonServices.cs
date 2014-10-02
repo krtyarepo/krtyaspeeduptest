@@ -2,22 +2,25 @@
 using Nop.Core;
 using Nop.Core.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 namespace Krtya.CRM.Services
 {
     public class PersonServices : IPersonServices
     {
-          #region Fields
+        #region Fields
 
         private readonly IRepository<Person> _personRepository;
+        private readonly IRepository<CompanyPersonMapping> _companyPersonMappingRepository;
 
         #endregion 
 
         #region Ctor
 
-        public PersonServices(IRepository<Person> personRepository)
+        public PersonServices(IRepository<Person> personRepository, IRepository<CompanyPersonMapping> companyPersonMappingRepository)
         {
             _personRepository = personRepository;
+            _companyPersonMappingRepository = companyPersonMappingRepository;
         }
 
         #endregion
@@ -69,9 +72,9 @@ namespace Krtya.CRM.Services
         /// <param name="pageSize">Page Size</param>
         /// <param name="showHidden">Show Hidden</param>
         /// <returns></returns>
-        public virtual IPagedList<Person> GetAllPersons(int pageIndex, int pageSize,bool showHidden=false)
+        public virtual IPagedList<Person> GetAllPersons(int pageIndex = 0, int pageSize = 2147483647,bool showHidden=false)
         {
-            var query = _personRepository.Table;
+            var query = _personRepository.TableNoTracking;
 
             if (!showHidden)
             {
@@ -83,6 +86,86 @@ namespace Krtya.CRM.Services
             return new PagedList<Person>(query, pageIndex, pageSize);
         }
 
+
+        /// <summary>
+        /// Get Persons By name
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <returns></returns>
+        public virtual IList<Person> GetPersonsByName(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Person not found.");
+
+            var query = _personRepository.TableNoTracking;
+
+            query = query.Where(p => !p.Deleted);
+
+            query = query.Where(p=>p.FirstName.ToLower().Contains(name.ToLower()) || p.LastName.ToLower().Contains(name.ToLower()));
+
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Get Company Person By Company Id
+        /// </summary>
+        /// <param name="companyId">Company Id</param>
+        /// <returns></returns>
+        public virtual IList<CompanyPersonMapping> GetCompanyPersonsByCompanyId(int companyId)
+        {
+            if (companyId == 0)
+                throw new ArgumentException("company not found.");
+
+            var query = _companyPersonMappingRepository.TableNoTracking;
+
+            query = query.Where(cp => cp.CompanyId == companyId);
+
+            return query.ToList();
+        }
+
+
+        #region Company Person Mapping
+
+        /// <summary>
+        /// Insert Company Person Mapping
+        /// </summary>
+        /// <param name="companyPersonMapping">company person mapping</param>
+        public virtual void InsertCompanyPersonMapping(CompanyPersonMapping companyPersonMapping)
+        {
+            if (companyPersonMapping == null)
+                throw new NullReferenceException("Company Person Mapping is null.");
+
+            _companyPersonMappingRepository.Insert(companyPersonMapping);
+        }
+
+        /// <summary>
+        /// Delete Company Person Mapping
+        /// </summary>
+        /// <param name="companyPersonMapping">company person mapping</param>
+        public virtual void DeleteCompanyPersonMapping(CompanyPersonMapping companyPersonMapping)
+        {
+            if (companyPersonMapping == null)
+                throw new NullReferenceException("Company Person Mapping is null.");
+
+            _companyPersonMappingRepository.Delete(_companyPersonMappingRepository.GetById(companyPersonMapping.Id));
+        }
+
+        /// <summary>
+        /// Get CompanyPersonMapping ByCompanyId PersonId
+        /// </summary>
+        /// <param name="companyId">Company Id</param>
+        /// <param name="personId">Person Id</param>
+        /// <returns></returns>
+        public virtual CompanyPersonMapping GetCompanyPersonMappingByCompanyIdPersonId(int companyId, int personId)
+        {
+            var query = _companyPersonMappingRepository.TableNoTracking;
+
+            query = query.Where(cp => cp.CompanyId.Equals(companyId) && cp.PersonId.Equals(personId));
+
+            return query.FirstOrDefault();
+        }
+
+        #endregion
 
         #endregion
 

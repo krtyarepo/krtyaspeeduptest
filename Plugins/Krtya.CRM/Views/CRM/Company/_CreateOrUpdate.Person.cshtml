@@ -1,11 +1,167 @@
 ﻿@model Krtya.CRM.Models.CompanyModel
 @using  Nop.Web.Framework;
+
+@{
+    var defaultGridPageSize = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = Nop.Core.Infrastructure.EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+
+}
 @Html.HiddenFor(model => model.Id)
 @if (Model.Id > 0)
 {
-    <text> hey </text>
+    <br /> 
+    <table>
+            <tr>
+            <td>
+                 <input id="personName" style="width:400px" />
+            </td>
+        </tr>
+         
+ </table>
+    <br />
+    <br />
+   <table class="adminContent">
+    <tr>
+        <td>
+            <div id="personList-grid"></div>
+
+            <script>
+                $(document).ready(function () {
+                    $("#personList-grid").kendoGrid({
+                        dataSource: {
+                            type: "json",
+                            transport: {
+                                read: {
+                                    url: "@Html.Raw(Url.Action("LinkedPersonList", "CRM", new RouteValueDictionary() {{ "companyId" ,Model.Id }, { "Namespaces", "Krtya.CRM.Controllers" }, { "area", "" } }))",
+                                    type: "POST",
+                                    dataType: "json"
+                                }
+                            },
+                            schema: {
+                                data: "Data",
+                                total: "Total",
+                                errors: "Errors"
+                            },
+                            error: function(e) {
+                                display_kendoui_grid_error(e);
+                                // Cancel the changes
+                                this.cancelChanges();
+                            },
+                            pageSize: @(defaultGridPageSize),
+                            serverPaging: true,
+                            serverFiltering: true,
+                            serverSorting: true
+                        },
+                        pageable: {
+                            refresh: true,
+                            pageSizes: [@(gridPageSizes)]
+                        },
+                        editable: {
+                            confirmation: false,
+                            mode: "inline"
+                        },
+                        scrollable: false,
+                        columns: [{
+                            field: "PictureUrl",
+                            title: "Logo",
+                            template: '<img src="#=PictureUrl#" />',
+                            width: 150
+                        },{
+                            field: "FirstName",
+                            title: "Name",
+                        },{
+                            field: "Id",
+                            title: "Details",
+                            width: 100,
+                            template: '<a href="PersonDetail/#=Id#">Details</a>'
+                        },{
+                            field: "Id",
+                            title: "Connection",
+                            width: 100,
+                            template: '<a href="" onClick="UnLinkPersonAjax(@(Model.Id),#=Id#);return false;">Unlink</a>'
+                        }]
+                    });
+                });
+            </script>
+        </td>
+    </tr>
+</table>
+   
 }
 else
 {
     <text>You need to save the company before you can map person for this company. </text>
 }
+
+                
+ <script>
+     $(document).ready(function () {
+
+        
+         //create AutoComplete UI component
+         $("#personName").kendoAutoComplete({
+             dataSource:{
+                 type: "json",
+                 transport: {
+                     read: {
+                         url: "@Html.Raw(Url.Action("AutoCompletePerson", "CRM", new RouteValueDictionary() {{ "Namespaces", "Krtya.CRM.Controllers" }, { "area", "" } }))",
+                         type: "POST",
+                         dataType: "json"
+                     }
+                 },
+				 
+             },
+             dataTextField: "name",
+             filter: "startswith",
+             placeholder: "Serach Contacts...",
+             select: function (ev) {
+
+                 var dataItem = this.dataItem(ev.item.index());
+                 LinkPersonAjax(@(Model.Id),dataItem.id);
+                 
+
+                 return false;
+             }
+
+
+         });
+     });
+
+     function LinkPersonAjax(companyId,personId){
+         $.ajax({
+             cache:false,
+             type: "POST",
+             url: "@(Url.RouteUrl("Plugin.Krtya.CRM.Company.LinkPerson"))",
+             data: { "companyId": companyId , "personId": personId},
+             success: function (data) {
+                 $('#personList-grid').data("kendoGrid").dataSource.read();
+                 $('#personList-grid').data("kendoGrid").refresh();
+                 alert(data);
+                 $("#personName").val(" ");
+             },
+             error: function(xhr, ajaxOptions, thrownError) {
+                 alert(thrownError);
+             },
+         });
+	 
+     }
+     
+     function UnLinkPersonAjax(companyId,personId){
+         $.ajax({
+             cache:false,
+             type: "POST",
+             url: "@(Url.RouteUrl("Plugin.Krtya.CRM.Company.UnLinkPerson"))",
+             data: { "companyId": companyId , "personId": personId},
+             success: function (data) {
+                 $('#personList-grid').data("kendoGrid").dataSource.read();
+                 $('#personList-grid').data("kendoGrid").refresh();
+                 alert(data);
+             },
+             error: function(xhr, ajaxOptions, thrownError) {
+                 alert(thrownError);
+             },
+         });
+	 
+     }
+     
+            </script>

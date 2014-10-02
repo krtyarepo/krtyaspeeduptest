@@ -43,6 +43,19 @@ namespace Krtya.CRM.Infrastructure
             );
 
 
+            routes.MapRoute("Plugin.Krtya.CRM.Company.LinkPerson",
+                   "Plugins/KrtyaCRM/LinkPerson",
+                 new { controller = "CRM", action = "LinkPerson" },
+                 new[] { "Krtya.CRM.Controllers" }
+              );
+
+            routes.MapRoute("Plugin.Krtya.CRM.Company.UnLinkPerson",
+                   "Plugins/KrtyaCRM/UnLinkPerson",
+                 new { controller = "CRM", action = "UnLinkPerson" },
+                 new[] { "Krtya.CRM.Controllers" }
+              );
+
+
             #endregion
 
             #region Person

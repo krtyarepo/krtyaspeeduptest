@@ -11,6 +11,9 @@ namespace Krtya.CRM.Models
             this.AvailableContactType = new List<SelectListItem>();
             this.AvailableCountries = new List<SelectListItem>();
             this.AvailableStates = new List<SelectListItem>();
+
+            this.PersonModel = new List<PersonModel>();
+            this.LinkPersonModel = new PersonModel();
         }
 
         [Required]
@@ -56,6 +59,10 @@ namespace Krtya.CRM.Models
         public IList<SelectListItem> AvailableCountries { get; set; }
 
         public IList<SelectListItem> AvailableStates { get; set; }
+
+        //Link Person
+        public PersonModel LinkPersonModel { get; set; }
+        public IList<PersonModel> PersonModel { get; set; }
 
     }
 }

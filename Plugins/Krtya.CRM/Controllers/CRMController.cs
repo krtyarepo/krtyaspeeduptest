@@ -11,6 +11,7 @@ using Krtya.CRM.Domain;
 using System;
 using Nop.Services.Media;
 using Nop.Core.Domain.Media;
+using System.Collections.Generic;
 
 namespace Krtya.CRM.Controllers
 {
@@ -282,6 +283,83 @@ namespace Krtya.CRM.Controllers
 
             return RedirectToAction("CompanyDetail", new { companyId=model.Id });
         }
+
+        [HttpPost]
+        public ActionResult LinkedPersonList(DataSourceRequest command,int companyId)
+        {
+            var companyPerson = _personServices.GetCompanyPersonsByCompanyId(companyId);
+
+            if (companyPerson.Count > 0)
+            {
+                companyPerson = companyPerson.OrderByDescending(p => p.Id).ToList();
+            }
+            var gridModel = new DataSourceResult
+            {
+                Data = companyPerson.Select(x =>
+                {
+                    var personModel = new PersonModel();
+                    personModel.Id = x.Person.Id;
+                    personModel.PictureUrl = _pictureService.GetPictureUrl(x.Person.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
+                    personModel.FirstName = x.Person.FirstName + " " + x.Person.LastName;
+                    return personModel;
+                }),
+                Total = companyPerson.Count,
+            };
+            return Json(gridModel);
+        }
+
+        [HttpPost]
+        public ActionResult AutoCompletePerson()
+        {
+            var person = _personServices.GetAllPersons();
+            return Json(person.Select(p => new { id = p.Id , name = p.FirstName + " " + p.LastName }));
+        }
+
+        [HttpPost]
+        public ActionResult LinkPerson(int companyId,int personId)
+        {
+            if (companyId <= 0 || personId <= 0)
+                return Json("Company or person is not exists.");
+
+            var existingRecord = _personServices.GetCompanyPersonMappingByCompanyIdPersonId(companyId, personId);
+
+            if (existingRecord == null)
+            {
+                var companyPersonMapping = new CompanyPersonMapping();
+                companyPersonMapping.CompanyId = companyId;
+                companyPersonMapping.PersonId = personId;
+
+                _personServices.InsertCompanyPersonMapping(companyPersonMapping);
+            }
+            else
+            {
+                return Json("Already Linked...");
+            }
+            return Json("Linked...");
+
+        }
+
+        [HttpPost]
+        public ActionResult UnLinkPerson(int companyId, int personId)
+        {
+            if (companyId <= 0 || personId <= 0)
+                return Json("Company or person is not exists.");
+
+            var existingRecord = _personServices.GetCompanyPersonMappingByCompanyIdPersonId(companyId, personId);
+
+            if (existingRecord != null)
+            {
+                _personServices.DeleteCompanyPersonMapping(existingRecord);
+            }
+            else
+            {
+                return Json("Already UnLinked...");
+            }
+            return Json("UnLinked...");
+
+        }
+
+
         #endregion
 
         #region Person
