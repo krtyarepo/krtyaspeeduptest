@@ -50,6 +50,14 @@ namespace Krtya.CRM.Services
         /// <returns></returns>
         IList<CompanyPersonMapping> GetCompanyPersonsByCompanyId(int companyId);
 
+        
+        /// <summary>
+        /// Get Company Person By Person Id
+        /// </summary>
+        /// <param name="personId">Person Id</param>
+        /// <returns></returns>
+        IList<CompanyPersonMapping> GetCompanyPersonsByPersonId(int personId);
+        
 
         #region Company Person Mapping
 

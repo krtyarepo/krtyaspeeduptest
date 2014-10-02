@@ -509,6 +509,37 @@ namespace Krtya.CRM.Controllers
 
             return RedirectToAction("PersonDetail", new { personId = model.Id });
         }
+
+        [HttpPost]
+        public ActionResult LinkedCompanyList(DataSourceRequest command, int personId)
+        {
+            var companyPerson = _personServices.GetCompanyPersonsByPersonId(personId);
+
+            if (companyPerson.Count > 0)
+            {
+                companyPerson = companyPerson.OrderByDescending(p => p.Id).ToList();
+            }
+            var gridModel = new DataSourceResult
+            {
+                Data = companyPerson.Select(x =>
+                {
+                    var companyModel = new CompanyModel();
+                    companyModel.Id = x.Company.Id;
+                    companyModel.PictureUrl = _pictureService.GetPictureUrl(x.Company.PictureId, _mediaSettings.AvatarPictureSize, defaultPictureType: Nop.Core.Domain.Media.PictureType.Avatar);
+                    companyModel.CompanyName = x.Company.CompanyName;
+                    return companyModel;
+                }),
+                Total = companyPerson.Count,
+            };
+            return Json(gridModel);
+        }
+
+        [HttpPost]
+        public ActionResult AutoCompleteCompany()
+        {
+            var compnies = _companyServices.GetAllCompanies();
+            return Json(compnies.Select(c => new { id = c.Id, name = c.CompanyName}));
+        }
         #endregion
     }
 }

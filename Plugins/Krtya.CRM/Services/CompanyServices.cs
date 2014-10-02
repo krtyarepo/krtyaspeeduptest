@@ -70,7 +70,7 @@ namespace Krtya.CRM.Services
         /// <param name="pageSize">Page Size</param>
         /// <param name="showHidden">Show Hidden</param>
         /// <returns></returns>
-        public virtual IPagedList<Company> GetAllCompanies(int pageIndex, int pageSize,bool showHidden=false)
+        public virtual IPagedList<Company> GetAllCompanies(int pageIndex = 0, int pageSize = 2147483647, bool showHidden = false)
         {
             var query = _companyRepository.TableNoTracking;
 

@@ -124,6 +124,24 @@ namespace Krtya.CRM.Services
         }
 
 
+        /// <summary>
+        /// Get Company Person By Person Id
+        /// </summary>
+        /// <param name="personId">Person Id</param>
+        /// <returns></returns>
+        public virtual IList<CompanyPersonMapping> GetCompanyPersonsByPersonId(int personId)
+        {
+            if (personId == 0)
+                throw new ArgumentException("person not found.");
+
+            var query = _companyPersonMappingRepository.TableNoTracking;
+
+            query = query.Where(cp => cp.PersonId == personId);
+
+            return query.ToList();
+        }
+
+
         #region Company Person Mapping
 
         /// <summary>
