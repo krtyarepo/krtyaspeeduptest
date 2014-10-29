@@ -7,6 +7,6 @@ REM add my github remote
 git remote add origin https://github.com/krtyarepo/krtyaspeeduptest.git
 
 REM send the 'master' branch to the new 'origin' remote
-git push origin master
+git push origin test
 
 pause 
